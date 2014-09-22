@@ -1,0 +1,5 @@
+div.gallery(ng-show="{{product.images.length}}")
+  img.img.img-circle.img-thumbnail.center-block(ng-src="{{product.images[current]}}")
+  ul.clearfix
+    li.small-image.pull-left.thumbnail(ng-repeat="image in product.images")
+      img(ng-src="{{image}}")

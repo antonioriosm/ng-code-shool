@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  .list-group(ng-controller="StoreController")
+    .list-group-item(ng-repeat="product in products")
+      h3 {{product.name}}
+        em.pull-right {{product.price | currency}}
+
+      product-gallery    
+
+      product-tabs
+
+block javascript
+  script(type="text/javascript",src="js/app.js")
+  script(type="text/javascript",src="js/products.js")
+
+block estilos
+  link(rel="stylesheet",href="css/styles.css")

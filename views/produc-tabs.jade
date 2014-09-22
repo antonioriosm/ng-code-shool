@@ -1,0 +1,38 @@
+section.tab(ng-controller="TabController")
+  ul.nav.nav-pills
+  li(ng-class="{active:isSet(1)}")
+    a(href,ng-click="setTab(1)") Description
+  li(ng-class="{active:isSet(2)}")
+    a(href,ng-click="setTab(2)") Specs
+  li(ng-class="{active:isSet(3)}")
+    a(href,ng-click="setTab(3)") Reviews
+  //div(ng-show="isSet(1)",ng-include="'product-description.html'")
+  // include product-description.jade
+  product-description(ng-show="isSet(1)")
+  div(product-specs,ng-show="isSet(2)")
+  // include product-specs.jade 
+  div(ng-show="isSet(3)")
+  h4 Reviews
+  ul
+    li(ng-repeat="review in product.reviews")
+      blockquote
+        strong {{review.stars}} Stars&nbsp;&nbsp;
+        {{review.body}}
+        cite.clearfix --{{review.author}}  {{review.createdOn | date}}
+
+  form(name="reviewForm",ng-controller="ReviewController",ng-submit="reviewForm.$valid && addReview(product)",novalidate)
+    blockquote
+      strong {{review.stars}} Stars&nbsp;&nbsp;
+      {{review.body}}
+      cite.clearfix --{{review.author}}
+    h4 Submit a Review
+    fieldset.form-group
+      select.form-control(ng-model="review.stars",ng-options="stars for stars in [5,4,3,2,1]",title="Stars",required,class="ng-invalid ng-dirty ng-valid")
+        option(value="") Rate the Product
+    fieldset.form-group
+      textarea.form-control(ng-model="review.body",placeholder="Write a short review of the product...",title="Review",required,class="ng-invalid ng-dirty ng-valid")
+    fieldset.form-group
+      input.form-control(type="email",ng-model="review.author",placeholder="jimmyDean@example.org",title="Email",required,class="ng-invalid ng-dirty ng-valid")
+    div reviewForm is {{reviewForm.$valid}}
+    fieldset.form-group
+      input.btn.btn-primary.pull-right(type="submit",value="Submit")
